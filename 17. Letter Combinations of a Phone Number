@@ -1,0 +1,39 @@
+class Solution {
+    //1. check the digits string length
+    //2. store the keypad value in array correspondingly
+    //call util method
+    //3.In util method, check if index==digits.length--> base case
+    //4. store in any string the array value
+    //5. Iterate char by char by converting new string to Character array as s.toCharArray()
+    //6.call util func recursivly by adding that char to str and increment the index by 1.
+    public List<String> letterCombinations(String digits) {
+        List<String> result = new ArrayList<String>();
+        if(digits.length()==0){
+            return result;
+        }
+        String[] arr = new String[10];
+        arr[2]="abc";
+        arr[3]="def";
+        arr[4]="ghi";
+        arr[5]="jkl";
+        arr[6]="mno";
+        arr[7]="pqrs";
+        arr[8]="tuv";
+        arr[9]="wxyz";
+        int index=0;
+        String str="";
+        helper(digits,arr,index,str,result);
+        return result;
+    }
+    public void helper(String digits,String[] arr, int index, String str, List<String> result){
+        if(index==digits.length()){
+            result.add(str);
+            return;
+        }
+        String s =  arr[digits.charAt(index)-'0'];
+        for(Character c: s.toCharArray()){
+            helper(digits,arr,index+1,str+c,result);
+        }
+    }
+    
+}
