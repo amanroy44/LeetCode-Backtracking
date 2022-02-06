@@ -1,0 +1,40 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    //declare list an empty string and call util function
+    //check if root is null, if it is, return
+    //else, add root.val+"->" to the string
+    //check if root is a leaf node , if it is add to list
+    //call util recursively by passing root.left and root.right
+    public List<String> binaryTreePaths(TreeNode root) {
+        List<String> list = new ArrayList<String>();
+        String str="";
+        paths(root,str,list);
+        return list;
+        
+    }
+    public void paths(TreeNode root, String str, List<String> list){
+        if(root==null){
+            return;
+        }
+        str+=Integer.toString(root.val)+"->";
+        if(root.left==null&&root.right==null){
+            list.add(str.substring(0,str.length()-2));
+        }
+        paths(root.left,str,list);
+        paths(root.right,str,list);
+    }
+}
