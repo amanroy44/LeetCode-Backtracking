@@ -1,0 +1,30 @@
+class Solution {
+    public int[] numsSameConsecDiff(int n, int k) {
+        //base case
+        if(n==1){
+            return new int[] {0,1,2,3,4,5,6,7,8,9};
+        }
+        List<Integer> list = new ArrayList<Integer>();
+        for(int num=1;num<10;num++){
+            solve(n-1,k,num,list);
+        }
+        //list to array
+        return list.stream().mapToInt(i->i).toArray();
+        
+    }
+    public void solve(int n, int k, int num, List<Integer> list){
+        //base case
+        if(n==0){
+            list.add(num);
+            return;
+        }
+        //find the last digit of the num
+        int tailDigit = num%10;
+        if(tailDigit+k < 10){
+            solve(n-1, k, num*10+tailDigit+k, list);
+        }
+        if(k>0 && tailDigit-k >= 0){
+            solve(n-1, k, num*10+tailDigit-k, list);
+        }
+    }
+}
