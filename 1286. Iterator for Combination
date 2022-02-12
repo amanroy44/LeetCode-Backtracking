@@ -1,0 +1,37 @@
+class CombinationIterator {
+    Queue<String> queue = new LinkedList<>();
+    public void helper(String str, String characters, int combinationLength, int index){
+        if(str.length()==combinationLength){
+            queue.add(str);
+            return;
+        }
+        for(int i=index;i<characters.length();i++){
+            String t = str;
+            t+=characters.charAt(i);
+            helper(t,characters,combinationLength,i+1);
+        }
+    }
+
+    public CombinationIterator(String characters, int combinationLength) {
+        String str="";
+        int index=0;
+        helper(str,characters,combinationLength,index);
+        
+    }
+    
+    public String next() {
+        return queue.remove();
+        
+    }
+    
+    public boolean hasNext() {
+        return !queue.isEmpty();
+    }
+}
+
+/**
+ * Your CombinationIterator object will be instantiated and called as such:
+ * CombinationIterator obj = new CombinationIterator(characters, combinationLength);
+ * String param_1 = obj.next();
+ * boolean param_2 = obj.hasNext();
+ */
