@@ -1,0 +1,26 @@
+class Solution {
+    //Inclusion Exclusion prrinciple
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> outList = new ArrayList<List<Integer>>();
+        List<Integer> inList = new ArrayList<Integer>();
+        int pos=0;
+        int sum=0;
+        solve(outList,inList,candidates,target,sum,pos);
+        return outList;
+    }
+    public void solve(List<List<Integer>> outList, List<Integer> inList, int[] candidates, int target, int sum, int pos){
+        if(sum==target){
+            outList.add(new ArrayList<>(inList));
+            return;
+        }
+        if(sum>target||pos==candidates.length){
+            return;
+        }
+        sum+=candidates[pos];
+        inList.add(candidates[pos]);
+        solve(outList,inList,candidates,target,sum,pos);
+        sum-=candidates[pos];
+        inList.remove(inList.size()-1);
+        solve(outList,inList,candidates,target,sum,pos+1);
+    }
+}
