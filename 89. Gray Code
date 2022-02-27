@@ -1,0 +1,28 @@
+class Solution {
+    public List<Integer> grayCode(int n) {
+        List<String> grayString = solve(n);
+        List<Integer> ans = new ArrayList<Integer>();
+        for(String str: grayString){
+            ans.add(Integer.parseInt(str,2));
+        }
+        return ans;
+        
+    }
+    public List<String> solve(int n){
+        if(n==1){
+            List<String> list = new ArrayList<String>();
+            list.add("0");
+            list.add("1");
+            return list;
+        }
+        List<String> ans = new ArrayList<String>();
+        List<String> temp = solve(n-1);
+        for(int i=0; i<temp.size(); i++){
+            ans.add("0"+temp.get(i));
+        }
+        for(int i=temp.size()-1;i>=0;i--){
+            ans.add("1"+temp.get(i));
+        }
+        return ans;
+    }
+}
