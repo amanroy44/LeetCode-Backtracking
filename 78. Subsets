@@ -1,0 +1,22 @@
+class Solution {
+    //inclusion exclusion principle, considering both i.e pos+1
+    public List<List<Integer>> subsets(int[] nums) {
+        List<List<Integer>> outList = new ArrayList<List<Integer>>();
+        List<Integer> inList = new ArrayList<Integer>();
+        int pos=0;
+        solve(outList,inList,pos,nums);
+        return outList;
+    }
+    
+    public void solve(List<List<Integer>> outList, List<Integer> inList, int pos,int[] nums){
+        if(pos==nums.length){
+            outList.add(new ArrayList<Integer>(inList));
+            return;
+        }
+        solve(outList,inList,pos+1,nums);
+        inList.add(nums[pos]);
+        solve(outList,inList,pos+1,nums);
+        inList.remove(inList.size()-1);
+        
+    }
+}
