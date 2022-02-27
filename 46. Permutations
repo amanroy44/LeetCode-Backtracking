@@ -1,0 +1,31 @@
+class Solution {
+    //iterate from i=pos to nums.length  and call swap, call solve recursive, call swap
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> outList = new ArrayList<List<Integer>>();
+        int pos=0;
+        solve(outList,nums,pos);
+        return outList;
+    }
+    public void solve(List<List<Integer>> outList, int[] nums, int pos){
+       if(pos==nums.length-1){
+           List<Integer> inList =  new ArrayList<Integer>();
+           for(int i=0;i<nums.length;i++){
+               inList.add(nums[i]);
+           }
+           outList.add(new ArrayList<Integer>(inList));
+           return;
+       }
+       for(int i=pos;i<nums.length;i++){
+           swap(i,pos,nums);
+           solve(outList,nums,pos+1);
+           swap(i,pos,nums);
+       }
+       
+    }
+    public void swap(int i, int pos, int[] nums){
+        int temp=nums[i];
+        nums[i]=nums[pos];
+        nums[pos]=temp;
+        return;
+    }
+}
