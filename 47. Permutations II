@@ -1,0 +1,34 @@
+class Solution {
+    public List<List<Integer>> permuteUnique(int[] nums) {
+        Set<List<Integer>> outset = new HashSet<List<Integer>>();
+        List<List<Integer>> outList = new ArrayList<List<Integer>>();
+        int pos =0;
+        solve(outset, pos, nums);
+        for(List<Integer> l : outset){
+            outList.add(l);
+        }
+        return outList;
+    }
+    public void solve(Set<List<Integer>> outset, int pos, int[] nums){
+        if(pos==nums.length){
+            List<Integer> list = new ArrayList<Integer>();
+            for(int i=0;i<nums.length;i++){
+                list.add(nums[i]);
+                
+            }
+            outset.add(new ArrayList<Integer>(list));
+            return;
+        }
+        for(int i=pos;i<nums.length;i++){
+            swap(i,pos,nums);
+            solve(outset,pos+1,nums);
+            swap(i,pos,nums);
+        }
+    }
+    public void swap(int i, int pos, int[] nums){
+        int temp=nums[i];
+        nums[i]=nums[pos];
+        nums[pos]=temp;
+        return;
+    }
+}
