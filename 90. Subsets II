@@ -1,0 +1,26 @@
+class Solution {
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        Arrays.sort(nums);
+        
+        Set<List<Integer>> set = new HashSet<List<Integer>>();
+        List<Integer> list = new ArrayList<Integer>();
+        List<List<Integer>> ans = new ArrayList<List<Integer>>();
+        int pos=0;
+        per(set,list,pos,nums);
+        for(List l: set){
+            ans.add(l);
+        }
+       
+        return ans;
+    }
+    public void per(Set<List<Integer>> set, List<Integer> list, int pos, int[] nums){
+        if(pos==nums.length){
+            set.add(new ArrayList<Integer>(list));
+            return;
+        }
+        per(set,list,pos+1,nums);
+        list.add(nums[pos]);
+        per(set,list,pos+1,nums);
+        list.remove(list.size()-1);
+    }
+}
