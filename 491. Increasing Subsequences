@@ -1,0 +1,37 @@
+class Solution {
+    //inclusion exclusion with proper base condition
+    public List<List<Integer>> findSubsequences(int[] nums) {
+        List<List<Integer>> result = new ArrayList<List<Integer>>();
+        List<Integer> list = new ArrayList<Integer>();
+        Set<List<Integer>> set = new HashSet<List<Integer>>();
+        int index=0;
+        solve(nums,index,list,set);
+        for(List<Integer> l:set){
+            result.add(l);
+        }
+        return result;
+    }
+    public void solve(int[] nums, int index, List<Integer> list, Set<List<Integer>> set){
+        if(index==nums.length){
+            if(list.size()>=2 && check(list)){
+                set.add(new ArrayList<Integer>(list));
+            }
+            return;
+        }
+        list.add(nums[index]);
+        solve(nums,index+1,list,set);
+        list.remove(list.size()-1);
+        solve(nums,index+1,list,set);
+    }
+    public boolean check(List<Integer> list){
+        for(int i=0;i<list.size()-1;i++){
+            if(list.get(i+1)>=list.get(i)){
+                continue;
+            }
+            else{
+                return false;
+            }
+        }
+        return true;
+    }
+}
