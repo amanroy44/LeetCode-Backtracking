@@ -1,0 +1,23 @@
+class Solution {
+    public List<String> letterCasePermutation(String s) {
+        List<String> result = new ArrayList<String>();
+        String op="";
+        int index=0;
+        int n=s.length();
+        solve(s,op,index,result,n);
+        return result;
+    }
+    public void solve(String s, String op, int index, List<String> result, int n){
+        if(op.length()==s.length()){
+            result.add(op);
+            return;
+        }
+        if(!Character.isDigit(s.charAt(index))){
+            solve(s,op+Character.toLowerCase(s.charAt(index)),index+1,result,n);
+            solve(s,op+Character.toUpperCase(s.charAt(index)),index+1,result,n);
+        }
+        else{
+            solve(s,op+s.charAt(index),index+1,result,n);
+        }
+    }
+}
