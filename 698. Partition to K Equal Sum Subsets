@@ -1,0 +1,48 @@
+//sum all the elements and if(sum%k !=0) return false
+//else make target = sum/k
+// search for the target elemet and whenever the taget found increment the count
+//lastlt check if (count==k)?true:false;
+class Solution {
+    
+    
+    public boolean canPartitionKSubsets(int[] nums, int k) {
+        int sum=0;
+        
+        for(int ele:nums){
+            sum+=ele;
+        }
+        if(sum%k !=0){
+            return false;
+        }
+        if(k==1){
+            return true;
+        }
+        if(k>nums.length){
+            return false;
+        }
+        int target = sum/k;
+        
+        int currSum=0;
+        int index=0;
+        boolean[] vis = new boolean[nums.length];
+        
+        return solve(index,nums,k,target,currSum,vis);
+        
+    }
+    
+    public boolean solve(int index, int[] nums, int k, int target, int currSum, Boolean[] vis){
+        if(k==0) return true;
+        if(currSum>target) return false;
+        if(currSum==target){
+            return solve(0,nums,k-1,target,0,vis);
+        }
+        for(int i=index;i<nums.length;i++){
+            if(!vis[i]){
+                vis[i]=true;
+                if(solve(i+1,nums,k,target,currSum+nums[i],vis)) return true;
+                vis[i]=false;
+            }
+        }
+        return false;
+    }
+}
