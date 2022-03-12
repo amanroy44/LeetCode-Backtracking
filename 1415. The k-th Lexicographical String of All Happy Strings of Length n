@@ -1,0 +1,40 @@
+class Solution {
+    List<String> ans = new ArrayList<>();
+    public String getHappyString(int n, int k) {
+        //At first generate the string
+        String s = "abc";
+        int sz = s.length();
+        //initiaize the formed string
+        String formedString = "";
+        generateHappyString(n,k,s,sz,formedString);
+        if(ans.size()<k){
+            return "";
+        }
+        else{
+            return ans.get(k-1);
+        }
+        
+    }
+    public void generateHappyString(int n, int k, String s, int sz, String formedString){
+        //base condn, if size equals k, than return
+        if(ans.size()==k){
+            return;
+        }
+        //if formed String length reaches n, than add to list
+        if(formedString.length()==n){
+            ans.add(formedString);
+            return;
+        }
+        //iterate from 0 to length of s
+        for(int i=0;i<sz;i++){
+            //this is precondition, if formedString length is 0, than silply add to formedString, else check if both characters are same or not
+            if(formedString.length()==0 || s.charAt(i)!=formedString.charAt(formedString.length()-1)){
+                //add
+                formedString+=s.charAt(i);
+                generateHappyString(n,k,s,sz,formedString);
+                //remove
+                formedString = formedString.substring(0,formedString.length()-1);
+            }
+        }
+    }
+}
